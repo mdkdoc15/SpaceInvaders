@@ -17,13 +17,14 @@ public class Enemy : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter2D(Collision2D col)
+   
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if(col.gameObject.CompareTag("Bullet"))
+        if(other.gameObject.CompareTag("Bullet"))
         {
             Destroy(gameObject);
+            Destroy(other.gameObject);
         }
-    
-        
     }
 }
