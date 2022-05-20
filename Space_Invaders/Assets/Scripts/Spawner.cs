@@ -19,6 +19,17 @@ public class Spawner : MonoBehaviour
     // What our last spawn time was
     private float lastTime;
 
+    private bool isPaused = false;
+
+    private void OnEnable()
+    {
+        PlayerHealth.OnDeath += Pause;
+    }
+    
+    private void OnDisable()
+    {
+        PlayerHealth.OnDeath -= Pause;
+    }
     private void Start()
     {
         Spawn();
@@ -36,13 +47,22 @@ public class Spawner : MonoBehaviour
     // Update time and index
     private void Spawn()
     {
-        lastTime = Time.time;
-        Instantiate(enemy, spawnPositions[index].position, spawnPositions[index].rotation);
-        ++index;
-        // Reset index to prevent out of bounds access
-        if (index >= spawnPositions.Length)
+        if (!isPaused)
         {
-            index = 0;
+            lastTime = Time.time;
+            Instantiate(enemy, spawnPositions[index].position, spawnPositions[index].rotation);
+            ++index;
+            // Reset index to prevent out of bounds access
+            if (index >= spawnPositions.Length)
+            {
+                index = 0;
+            }
         }
+        
+    }
+
+    private void Pause()
+    {
+        isPaused = true;
     }
 }
