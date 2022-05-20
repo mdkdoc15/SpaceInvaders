@@ -11,6 +11,16 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     Vector2 moveVec = Vector2.zero;
 
+
+    private void OnEnable()
+    {
+        PlayerHealth.OnDeath += StopMovement;
+    }
+    private void OnDisable()
+    {
+        PlayerHealth.OnDeath -= StopMovement;
+    }
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -34,5 +44,10 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         rb.velocity = moveVec * moveSpeed;
+    }
+
+    private void StopMovement()
+    {
+        rb.bodyType = RigidbodyType2D.Static;
     }
 }

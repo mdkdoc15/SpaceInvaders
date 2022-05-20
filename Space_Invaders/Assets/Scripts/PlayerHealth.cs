@@ -15,16 +15,18 @@ public class PlayerHealth : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Enemy"))
         {
-            Destroy(col.gameObject);
+            
             --lives;
-            if (lives < 0)
+            if (lives >= 0)
             {
-                OnDeath?.Invoke();
-                
-                Destroy(gameObject);
+                Destroy(col.gameObject);
+                text.text = "Lives : " + lives.ToString();
                 return;
             }
-            text.text = "Lives : " + lives.ToString();
+            
+            OnDeath?.Invoke();
+            
+            
         }
     }
 }
