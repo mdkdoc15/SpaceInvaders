@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManagment : MonoBehaviour
 {
@@ -22,5 +23,16 @@ public class UIManagment : MonoBehaviour
     public void OnDisable()
     {
         PlayerHealth.OnDeath -= EnableGameOverMenu;
+    }
+    
+    
+    public void StartWave1()
+    {
+        SceneManager.LoadScene("Wave 1");
+    }
+
+    public void GoToMenu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 }
